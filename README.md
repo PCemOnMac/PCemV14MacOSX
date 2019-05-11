@@ -1,4 +1,4 @@
-## Inofficial PCem v14 port for macOS and Mac OS X
+## Unofficial PCem v14 port for macOS and Mac OS X
 
 If you're a user looking for the Mac OS X build of PCem, click [Releases](https://github.com/kyr0/PCemV14MacOSX/releases)  and download 
 the latest release. Please note that atm this is an *unofficial* build. If you have issues,
