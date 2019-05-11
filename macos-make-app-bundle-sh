@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# clean from previous build
+rm -rf macos/build
+
+# create bundle directory structure
+mkdir macos/build
+mkdir macos/build/PCem.app
+mkdir macos/build/PCem.app/Contents
+mkdir macos/build/PCem.app/Contents/MacOS
+mkdir macos/build/PCem.app/Contents/Resources
+
+# copy necessary files
+cp macos/Info.plist macos/build/PCem.app/Contents
+cp macos/pcem.icns macos/build/PCem.app/Contents/Resources
+cp pcem macos/build/PCem.app/Contents/MacOS
+cp macos/launch_pcem.sh macos/build/PCem.app/Contents/MacOS
+
+# set executable permission
+chmod +x macos/build/PCem.app/Contents/MacOS/pcem
+chmod +x macos/build/PCem.app/Contents/MacOS/launch_pcem.sh
+
+# change linker dynamic lib links to local links
+# - this is why LDFLAGS headerpad_max_install_names was needed
+# - only non-system libs are copied and rewritten
+# - you can find out yourself, which libs need to be copied.
+#   therefore run: otool -L macos/build/PCem.app/Contents/MacOS/PCem
+cp /usr/local/opt/wxmac/lib/libwx_osx_cocoau_xrc-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_osx_cocoau_webview-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_osx_cocoau_html-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_osx_cocoau_qa-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_osx_cocoau_adv-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_osx_cocoau_core-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_baseu_xml-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_baseu_net-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/wxmac/lib/libwx_baseu-3.0.dylib macos/build/PCem.app/Contents/MacOS
+cp /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib macos/build/PCem.app/Contents/MacOS
+
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_osx_cocoau_xrc-3.0.dylib @executable_path/libwx_osx_cocoau_xrc-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_osx_cocoau_webview-3.0.dylib @executable_path/libwx_osx_cocoau_webview-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_osx_cocoau_html-3.0.dylib @executable_path/libwx_osx_cocoau_html-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_osx_cocoau_qa-3.0.dylib @executable_path/libwx_osx_cocoau_qa-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_osx_cocoau_adv-3.0.dylib @executable_path/libwx_osx_cocoau_adv-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_osx_cocoau_core-3.0.dylib @executable_path/libwx_osx_cocoau_core-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_baseu_xml-3.0.dylib @executable_path/libwx_baseu_xml-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_baseu_net-3.0.dylib @executable_path/libwx_baseu_net-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/wxmac/lib/libwx_baseu-3.0.dylib @executable_path/libwx_baseu-3.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib @executable_path/libSDL2-2.0.0.dylib macos/build/PCem.app/Contents/MacOS/PCem
+
+# copy over directories
+cp -R roms macos/build/PCem.app/Contents/MacOS
+cp -R configs macos/build/PCem.app/Contents/MacOS
+cp -R nvr macos/build/PCem.app/Contents/MacOS
+mkdir macos/build/PCem.app/Contents/MacOS/screenshots

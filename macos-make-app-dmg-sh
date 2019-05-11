@@ -1,0 +1,16 @@
+#!/bin/bash
+
+rm -rf PCem.dmg
+
+create-dmg \
+--volname "PCem" \
+--volicon "macos/pcem.icns" \
+--background "macos/pcem-dmg-background.png" \
+--window-pos 50 50 \
+--window-size 450 380 \
+--icon-size 50 \
+--icon "PCem.app" 100 260 \
+--hide-extension "PCem.app" \
+--app-drop-link 340 260 \
+"PCem.dmg" \
+"macos/build/"
