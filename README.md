@@ -14,6 +14,8 @@ report those issue here first, not on the official forum. Thanks :)
 4. Download, install and use my [Folder to ISO helper](https://github.com/kyr0/MacOS-Finder-Convert-Folder-To-CD-Image) 
    to easily transfer files from macOS to DOS/Windows by mounting the ISO as a CD ROM.
 
+![Screencast](pcem_mac_demo.gif)
+
 Please note:
 - You can mount CD ROMs as .ISO files at runtime (right-click, context menu)
 - You can and should change the rendering to OpenGL (context menu) at runtime
